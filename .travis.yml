@@ -7,7 +7,7 @@ services:
 
 jobs:
   include:
-    - name: Generate SBOM
+    - name: "Generate SBOM"
       os: linux
       dist: focal
       addons:
