@@ -7,15 +7,15 @@ services:
 
 jobs:
   include:
-    - name: "Generate SBOM"
+    - name: Generate SBOM
       os: linux
       dist: focal
       addons:
         sbom:
           on:
-            branch: 'main'
-          run_phase: 'after_success'
-          output_format: 'cyclonedx-json'
+            branch: main
+          run_phase: after_success
+          output_format: cyclonedx-json
           input_dir: '/python'
           output_dir: '/sbom/python'
       script:
