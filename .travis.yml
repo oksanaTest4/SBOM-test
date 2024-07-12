@@ -33,6 +33,7 @@
 #   - echo failed
 #   - echo $TRAVIS_TEST_RESULT
 #   - ls /sbom/python
+#
 ########-SBOM Docker image - Python-###############
 os: linux
 dist: focal
@@ -55,12 +56,12 @@ jobs:
           run_phase: after_success
           output_format: spdx-json
           input_dir: '/python'
-          output_dir: '/sbom/test'
+          output_dir: '/test'
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-  - ls /sbom/test
+  - ls /test
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-  - ls /sbom/test
+  - ls /test
