@@ -7,7 +7,6 @@ jobs:
     - name: "test" # existing functionality
       script: # existing functionality
         - python --version
-
     - name: "sbom"
       script:
         - cd python
@@ -15,20 +14,21 @@ jobs:
       addons:
         sbom:
           on:
-            branch: 'main'
+            branch: main
             pr: true
           condition: false
-          run_phase: "after_success"
-          output_format: "spdx-json"
-          output_dir: "/test"
-          input_dir: "/python"
+          run_phase: after_success
+          output_format: spdx-json
+          input_dir: '/python'
+          output_dir: '/sbom/test'
+          
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-  - ls /test
+  - ls /sbom/test
 
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-  - ls /test
+  - ls /sbom/test
