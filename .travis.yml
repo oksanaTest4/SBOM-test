@@ -35,19 +35,52 @@
 #   - ls /sbom/python
 #
 ########-SBOM Docker image - Python-###############
+# os: linux
+# dist: focal
+# language: python
+
+# jobs:
+#   include:
+#     - name: "test" # existing functionality
+#       script: # existing functionality
+#         - python --version
+#     - name: "sbom"
+#       script:
+#         - cd python
+#         - pip install -r requirements.txt
+#       addons:
+#         sbom:
+#           on:
+#             branch: main
+#             pr: true
+#           condition: false
+#           run_phase: after_success
+#           output_format: spdx-json
+#           input_dir: '/python'
+#           output_dir: '/test'
+
+# after_success:
+#   - echo done
+#   - echo $TRAVIS_TEST_RESULT
+#   - ls /test
+# after_failure:
+#   - echo failed
+#   - echo $TRAVIS_TEST_RESULT
+#   - ls /test
+########-SBOM Docker image - Ruby-###############
 os: linux
 dist: focal
-language: python
+language: ruby
 
 jobs:
   include:
     - name: "test" # existing functionality
       script: # existing functionality
-        - python --version
+        - ruby --version
     - name: "sbom"
       script:
-        - cd python
-        - pip install -r requirements.txt
+        - cd ruby
+        - bundle install
       addons:
         sbom:
           on:
@@ -56,7 +89,7 @@ jobs:
           condition: false
           run_phase: after_success
           output_format: spdx-json
-          input_dir: '/python'
+          input_dir: '/ruby'
           output_dir: '/test'
 
 after_success:
