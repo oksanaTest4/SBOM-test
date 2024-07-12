@@ -36,45 +36,45 @@
 #   - ls /sbom/python
 #
 ########-SBOM generate for JavaScript-########################################################
-os: linux
-dist: focal
-language: node_js
+# os: linux
+# dist: focal
+# language: node_js
 
-node_js:
-  - "14"
+# node_js:
+#   - "14"
 
-jobs:
-  include:
-    - name: "test" # existing functionality
-      script:
-        - npm -v
+# jobs:
+#   include:
+#     - name: "test" # existing functionality
+#       script:
+#         - npm -v
     
-    - name: "sbom" # SBOM generation job
-      script:
-        - cd node
-        - npm install
-      addons:
-        sbom:
-          on:
-            branch: 'main'
-            pr: true
-          condition: true
-          run_phase: "after_success" # Run SBOM generation after a failure
-          output_format: "spdx-json" # Specify the SBOM output format
-          output_dir: "/test" # Specify the output directory for SBOM
-          input_dir: "/node" # Specify the input directory for SBOM
+#     - name: "sbom" # SBOM generation job
+#       script:
+#         - cd node
+#         - npm install
+#       addons:
+#         sbom:
+#           on:
+#             branch: 'main'
+#             pr: true
+#           condition: true
+#           run_phase: "after_success" # Run SBOM generation after a failure
+#           output_format: "spdx-json" # Specify the SBOM output format
+#           output_dir: "/test" # Specify the output directory for SBOM
+#           input_dir: "/node" # Specify the input directory for SBOM
 
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-  - ls /node
+# after_success:
+#   - echo done
+#   - echo $TRAVIS_TEST_RESULT
+#   - ls /node
 
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
-  - ls /node
+# after_failure:
+#   - echo failed
+#   - echo $TRAVIS_TEST_RESULT
+#   - ls /node
 
-########-SBOM Docker image - Python-###############
+########-SBOM Docker image - Python-########################################################
 # os: linux
 # dist: focal
 # language: python
@@ -109,7 +109,7 @@ after_failure:
 #   - ls /test
 
 
-########-SBOM Docker image - Ruby-###############
+########-SBOM Docker image - Ruby-########################################################
 # os: linux
 # dist: focal
 # language: ruby
@@ -142,3 +142,36 @@ after_failure:
 #   - echo failed
 #   - echo $TRAVIS_TEST_RESULT
 #   - ls /test
+
+########-SBOM Docker image - JavaScript-########################################################
+os: linux
+dist: focal
+language: node_js
+
+node_js:
+  - 14
+
+jobs:
+  include:
+    - name: "test" # existing functionality
+      script:
+        - npm -v
+    
+    - name: "sbom" # SBOM generation job
+      script:
+        - cd node
+        - npm install
+      addons:
+        sbom:
+          on:
+            branch: main
+            pr: true
+          condition: true
+          run_phase: after_success # Run SBOM generation after a failure
+          output_format: spdx-json # Specify the SBOM output format
+          output_dir: '/test' # Specify the output directory for SBOM
+          input_dir: '/node' # Specify the input directory for SBOM
+
+after_success:
+  - cd test
+  - ls
