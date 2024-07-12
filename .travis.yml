@@ -38,6 +38,7 @@
 os: linux
 dist: focal
 language: python
+
 jobs:
   include:
     - name: "test" # existing functionality
@@ -57,6 +58,7 @@ jobs:
           output_format: spdx-json
           input_dir: '/python'
           output_dir: '/test'
+
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
